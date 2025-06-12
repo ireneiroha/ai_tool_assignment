@@ -14,13 +14,13 @@ The assignment emphasizes real-world applications of AI, ethical awareness, and 
 
 👥 Team Members & Roles
 
-Alice A. – Scikit-learn Implementation (Iris Dataset)
+Rahab Mwai A. – Scikit-learn Implementation (Iris Dataset)
 
-Ben B. – TensorFlow CNN (MNIST Digits)
+Celine Benard B. – TensorFlow CNN (MNIST Digits)
 
-Cathy C. – NLP using spaCy (Amazon Reviews)
+Brian Ngugi Kamanu. – NLP using spaCy (Amazon Reviews)
 
-Dan D. – Ethics & Debugging Analysis
+Winfred Nkatha. – Ethics & Debugging Analysis
 
 Ella E. – Report Compilation & Presentation Coordination
 
