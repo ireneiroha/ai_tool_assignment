@@ -22,7 +22,7 @@ Brian Ngugi Kamanu. – NLP using spaCy (Amazon Reviews)
 
 Winfred Nkatha. – Ethics & Debugging Analysis
 
-Ella E. – Report Compilation & Presentation Coordination
+Ezinne Iroha Kalu. – Report Compilation & Presentation Coordination
 
 🛠 Tools & Frameworks Used
 
