@@ -4,31 +4,37 @@ import numpy as np
 from PIL import Image, ImageOps
 
 # Load the trained model
-model = tf.keras.models.load_model("mnist_model.h5")
+@st.cache_resource
+def load_model():
+    return tf.keras.models.load_model("mnist_model.h5")
 
-st.title("🧠 MNIST Digit Classifier")
-st.write("Upload an image of a handwritten digit (0–9), and the model will predict it.")
+model = load_model()
+
+st.title("MNIST Digit Classifier")
+st.write("Upload a 28x28 image of a handwritten digit (0–9). The model will predict the digit.")
 
 uploaded_file = st.file_uploader("Choose an image...", type=["png", "jpg", "jpeg"])
 
 if uploaded_file is not None:
-    # Load and preprocess image
-    image = Image.open(uploaded_file).convert("L")  # convert to grayscale
-    image = ImageOps.invert(image)  # invert for white digits on black background
-    image = image.resize((28, 28))
-    img_array = np.array(image)
-    img_array = img_array / 255.0
-    img_array = img_array.reshape(1, 28, 28)
+    try:
+        # Load and preprocess image
+        image = Image.open(uploaded_file).convert("L")  # Convert to grayscale
+        image = ImageOps.invert(image)  # Invert colors
+        image = image.resize((28, 28))  # Resize to match model input
+        img_array = np.array(image).astype("float32") / 255.0  # Normalize
+        img_array = img_array.reshape(1, 28, 28, 1)
 
-    # If your model expects a channel dimension, uncomment the next line:
-    # img_array = img_array[..., np.newaxis]
+        st.image(image, caption="Uploaded Digit", width=150)
 
-    st.image(image, caption="Uploaded Image", use_container_width=False)
+        # Predict
+        prediction = model.predict(img_array)
+        pred_label = np.argmax(prediction, axis=1)[0]
+        st.success(f"Predicted Digit: {pred_label}")
+    except Exception as e:
+        st.error(f"Error processing image: {e}")
+else:
+    st.info("Please upload a digit image.")
 
-    # Predict
-    prediction = model.predict(img_array)
-    predicted_label = np.argmax(prediction)
+st.caption("Model: Simple CNN trained on MNIST.")
 
-    st.subheader(f"Predicted Digit: {predicted_label}")
-    st.bar_chart(prediction[0])
 
